@@ -22,6 +22,11 @@ app.use(
 
 app.use(cookieParser());
 
-app.get("/", (req, res) => res.send("Hello world"));
+//define routes
+
+import heathCheckRoute from "./routes/heathCheck.route.js";
+
+app.use(heathCheckRoute);
+
 app.use(errorHandler);
 export { app };
