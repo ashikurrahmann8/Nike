@@ -10,6 +10,7 @@ const serverStart = async () => {
     });
   } catch (error) {
     console.log(" ~ file: index.js:50 ~ serverStart ~ error:", error);
+    process.exit(1);
   }
 };
 
