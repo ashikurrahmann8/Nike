@@ -25,8 +25,8 @@ app.use(cookieParser());
 //define routes
 
 import heathCheckRoute from "./routes/heathCheck.route.js";
-
+import userRoute from "./routes/user.route.js";
 app.use(heathCheckRoute);
-
+app.use("/api/v1", userRoute);
 app.use(errorHandler);
 export { app };
