@@ -1,3 +1,5 @@
+
+
 class ApiError extends Error {
   /**
    * @param {number} statusCode - the HTTP status code for the error

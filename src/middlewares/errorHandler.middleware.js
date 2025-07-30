@@ -1,4 +1,5 @@
 import { NODE_ENV } from "../constants/constants.js";
+console.log(NODE_ENV);
 
 const errorHandler = (err, _req, res, _next) => {
   const { statusCode, message, errors, errorCode, stack } = err;

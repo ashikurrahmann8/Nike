@@ -2,32 +2,32 @@ import nodemailer from "nodemailer";
 import { MAIL_PASS, MAIL_PORT, MAIL_SERVICE, MAIL_USER } from "../constants/constants.js";
 import ApiError from "./apiError.js";
 import Mailgen from "mailgen";
+import { NODE_ENV } from "../constants/constants.js";
 
 async function sendMail(options) {
   // Create a test account or replace with real credentials.
-  const transporter = nodemailer.createTransport({
-    host: MAIL_SERVICE,
-    port: MAIL_PORT,
-    secure: NODE_ENV === "development" ? false : true,
-    auth: {
-      user: MAIL_USER,
-      pass: MAIL_PASS,
-    },
-  });
-
-  const { emailBody, emailText } = mailgenConfig(options.mailFormat);
-
-  // Wrap in an async IIFE so we can use await.
-
-  const mail = await transporter.sendMail({
-    from: '"Nike" <contact@nike.com>',
-    to: options.email,
-    subject: options.subject,
-    text: emailText, // plain‑text body
-    html: emailBody, // HTML body
-  });
   try {
-    await mail();
+    const transporter = nodemailer.createTransport({
+      host: MAIL_SERVICE,
+      port: MAIL_PORT,
+      secure: NODE_ENV === "development" ? false : true,
+      auth: {
+        user: MAIL_USER,
+        pass: MAIL_PASS,
+      },
+    });
+
+    const { emailBody, emailText } = mailgenConfig(options.mailFormat);
+
+    // Wrap in an async IIFE so we can use await.
+
+    await transporter.sendMail({
+      from: '"Nike" <contact@nike.com>',
+      to: options.email,
+      subject: options.subject,
+      text: emailText, // plain‑text body
+      html: emailBody, // HTML body
+    });
   } catch (error) {
     throw ApiError.serverError(error.message);
   }
@@ -60,17 +60,20 @@ function verifyEmail(name, verifyUrl) {
     body: {
       name: name,
       intro: "Welcome to Nike! We are very excited to have you on board!",
-      actions: {
-        instructions: "To get started with Nike, please click here:",
-        button: {
-          color: "#22BC66",
-          text: "Confirm your account",
-          link: verifyUrl,
+      action: [
+        {
+          instructions: "To get started with Nike, please click here:",
+          button: {
+            color: "#22BC66",
+            text: "Confirm your account",
+            link: verifyUrl,
+          },
         },
-      },
+      ],
       outro: "Need help, or have questions? Just reply to this email, we'd love to help.",
     },
   };
 }
+
 
 export { sendMail, verifyEmail };

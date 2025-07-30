@@ -1,3 +1,4 @@
+
 import { app } from "./src/app.js";
 import { PORT } from "./src/constants/constants.js";
 import dbConnection from "./src/db/index.js";
@@ -15,3 +16,4 @@ const serverStart = async () => {
 };
 
 serverStart();
+
