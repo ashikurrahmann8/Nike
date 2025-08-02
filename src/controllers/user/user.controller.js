@@ -61,4 +61,30 @@ const verifymail = asyncHandler(async (req, res) => {
   }
 });
 
-export { signup, verifymail };
+const signin = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw ApiError.notFound("Invalid credentials");
+  }
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) {
+    throw ApiError.notFound("Invalid credentials");
+  }
+  const accessToken = user.accessToken();
+  const refreshToken = user.refreshToken();
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  };
+
+  return res
+    .cookie("accessToken", accessToken, { ...cookieOptions, maxAge: 24 * 60 * 60 * 1000 })
+    .cookie("refreshToken", refreshToken, { ...cookieOptions, maxAge: 30 * 24 * 60 * 60 * 1000 })
+    .status(200)
+    .json(ApiSuccess.ok("User signed in", { accessToken, refreshToken }));
+});
+
+export { signup, verifymail, signin };
