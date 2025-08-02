@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_SECRET } from "../constants/constants";
+import { ACCESS_TOKEN_SECRET } from "../constants/constants.js";
 import { User } from "../models/user.model.js";
 import ApiError from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
