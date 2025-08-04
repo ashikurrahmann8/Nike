@@ -1,3 +1,4 @@
+// import { use } from "react";
 import { APP_URL, JWT_SECRET } from "../../constants/constants.js";
 import { User } from "../../models/user.model.js";
 import ApiError from "../../utils/apiError.js";
@@ -95,4 +96,51 @@ const signout = asyncHandler(async (_req, res) => {
     .json(ApiSuccess.ok("User signed out"));
 });
 
-export { signup, verifymail, signin, signout };
+const updateUser = asyncHandler(async (req, res) => {
+  const { userName, name, email } = req.body;
+  const user = await User.findById(req.user._id);
+  if (user.userName !== userName) {
+    const isUserNameExists = await User.findOne({ userName });
+    if (isUserNameExists) {
+      throw ApiError.badRequest("Username already exists");
+    } else {
+      user.userName = userName;
+    }
+  }
+  if (user.email !== email) {
+    const isEmailExists = await User.findOne({ email });
+    if (isEmailExists) {
+      throw ApiError.badRequest("Email already exists");
+    } else {
+      user.isVerified = false;
+      user.email = email;
+      const token = user.jwtToken();
+      const verifyUrl = `${APP_URL}/api/v1/users/verify?token=${token}`;
+      sendMail({
+        email,
+        subject: "Verify your email",
+        mailFormat: verifyEmail(name, verifyUrl),
+      });
+    }
+  }
+  user.name = name;
+  await user.save();
+  return res.status(200).json(ApiSuccess.ok("User updated", user));
+});
+
+const updatePassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const user = req.user;
+  if (oldPassword === newPassword) {
+    throw ApiError.badRequest("New password cannot be same as old password");
+  }
+  const isMatch = await user.comparePassword(oldPassword);
+  if (!isMatch) {
+    throw ApiError.notFound("Old password is incorrect");
+  }
+  user.password = newPassword;
+  await user.save();
+  return res.status(200).json(ApiSuccess.ok("Password updated"));
+});
+
+export { signup, verifymail, signin, signout, updateUser, updatePassword };
