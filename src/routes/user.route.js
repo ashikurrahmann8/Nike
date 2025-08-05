@@ -21,8 +21,8 @@ router.post("/signup", validationMiddleware(userSignupSchema), signup);
 router.get("/verify/", verifymail);
 router.post("/signin", validationMiddleware(userSigninSchema), signin);
 router.get("/signout", auth, signout);
-router.get("/update", auth, validationMiddleware(userUpdateSchema), updateUser);
-router.get(
+router.post("/update", auth, validationMiddleware(userUpdateSchema), updateUser);
+router.post(
   "/update-password",
   auth,
   validationMiddleware(userPasswordUpdateSchema),

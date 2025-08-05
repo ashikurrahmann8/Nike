@@ -41,9 +41,11 @@ const verifymail = asyncHandler(async (req, res) => {
     throw ApiError.badRequest("Token is required");
   }
 
-  const decodedToken = jwt.verify(token, JWT_SECRET);
-  if (!decodedToken) {
-    throw ApiError.badRequest("Invalid token");
+  let decodedToken;
+  try {
+    decodedToken = jwt.verify(token, JWT_SECRET);
+  } catch (error) {
+    throw ApiError.unauthorized("Invalid or expired access token");
   }
 
   const user = await User.findById(decodedToken.id).select(
