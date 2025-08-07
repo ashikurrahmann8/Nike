@@ -1,5 +1,6 @@
 import e from "express";
 import {
+  forgotPassword,
   signin,
   signout,
   signup,
@@ -9,6 +10,7 @@ import {
 } from "../controllers/user/user.controller.js";
 import validationMiddleware from "../middlewares/validation.middleware.js";
 import {
+  userForgotPasswordSchema,
   userPasswordUpdateSchema,
   userSigninSchema,
   userSignupSchema,
@@ -28,5 +30,6 @@ router.post(
   validationMiddleware(userPasswordUpdateSchema),
   updatePassword
 );
+router.post("/forgot-password", validationMiddleware(userForgotPasswordSchema), forgotPassword);
 
 export default router;

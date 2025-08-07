@@ -55,7 +55,7 @@ function mailgenConfig(mailFormat) {
   return { emailBody, emailText };
 }
 
-function verifyEmail(name, verifyUrl) {
+function verifyEmailFormat(name, verifyUrl) {
   return {
     body: {
       name: name,
@@ -75,5 +75,23 @@ function verifyEmail(name, verifyUrl) {
   };
 }
 
+function forgotPasswordFormat(name, otp) {
+  return {
+    body: {
+      name: name,
+      intro: `Hi ${name}, we recieved a request to recieve your password.`,
+      action: {
+        instructions: `Use the following One time password (OTP) to reset your password.`,
+        button: {
+          color: "#22BC66",
+          text: `${otp}`,
+          link: "#",
+        },
+      },
+      outro:
+        "If you didn't request this, you can ignore this message. For help, just reply to this email.",
+    },
+  };
+}
 
-export { sendMail, verifyEmail };
+export { sendMail, verifyEmailFormat, forgotPasswordFormat };

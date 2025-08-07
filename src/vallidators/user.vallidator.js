@@ -33,4 +33,14 @@ const userPasswordUpdateSchema = z.object({
     ),
 });
 
-export { userSignupSchema, userSigninSchema, userUpdateSchema, userPasswordUpdateSchema };
+const userForgotPasswordSchema = z.object({
+  email: z.email(),
+});
+
+export {
+  userSignupSchema,
+  userSigninSchema,
+  userUpdateSchema,
+  userPasswordUpdateSchema,
+  userForgotPasswordSchema,
+};

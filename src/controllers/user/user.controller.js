@@ -4,7 +4,7 @@ import { User } from "../../models/user.model.js";
 import ApiError from "../../utils/apiError.js";
 import ApiSuccess from "../../utils/apiSuccess.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { sendMail, verifyEmail } from "../../utils/mail.js";
+import { sendMail, forgotPasswordFormat, verifyEmailFormat } from "../../utils/mail.js";
 import jwt from "jsonwebtoken";
 
 const signup = asyncHandler(async (req, res) => {
@@ -29,7 +29,7 @@ const signup = asyncHandler(async (req, res) => {
   sendMail({
     email,
     subject: "Verify your email",
-    mailFormat: verifyEmail(name, verifyUrl),
+    mailFormat: verifyEmailFormat(name, verifyUrl),
   });
 
   return res.status(200).json(ApiSuccess.created("User created", user));
@@ -121,7 +121,7 @@ const updateUser = asyncHandler(async (req, res) => {
       sendMail({
         email,
         subject: "Verify your email",
-        mailFormat: verifyEmail(name, verifyUrl),
+        mailFormat: verifyEmailFormat(name, verifyUrl),
       });
     }
   }
@@ -145,4 +145,23 @@ const updatePassword = asyncHandler(async (req, res) => {
   return res.status(200).json(ApiSuccess.ok("Password updated"));
 });
 
-export { signup, verifymail, signin, signout, updateUser, updatePassword };
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw ApiError.notFound("User not found");
+  }
+  const otp = Math.floor(1000 + Math.random() * 9000);
+  sendMail({
+    email,
+    subject: "Reset password",
+    mailFormat: forgotPasswordFormat(user.name, otp),
+  });
+
+  user.passwordResetToken = otp;
+  user.passwordResetExpires = Date.now() + 5 * 60 * 1000;
+  await user.save();
+  return res.status(200).json(ApiSuccess.ok("Otp sent"));
+});
+
+export { signup, verifymail, signin, signout, updateUser, updatePassword, forgotPassword };
