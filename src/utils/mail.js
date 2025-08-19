@@ -3,6 +3,7 @@ import { MAIL_PASS, MAIL_PORT, MAIL_SERVICE, MAIL_USER } from "../constants/cons
 import ApiError from "./apiError.js";
 import Mailgen from "mailgen";
 import { NODE_ENV } from "../constants/constants.js";
+import { asyncHandler } from "./asyncHandler.js";
 
 async function sendMail(options) {
   // Create a test account or replace with real credentials.
@@ -93,5 +94,7 @@ function forgotPasswordFormat(name, otp) {
     },
   };
 }
+
+
 
 export { sendMail, verifyEmailFormat, forgotPasswordFormat };

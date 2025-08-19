@@ -164,4 +164,28 @@ const forgotPassword = asyncHandler(async (req, res) => {
   return res.status(200).json(ApiSuccess.ok("Otp sent"));
 });
 
-export { signup, verifymail, signin, signout, updateUser, updatePassword, forgotPassword };
+const validateOtp = asyncHandler(async (req, res) => {
+  const { otp } = req.body;
+  const user = await User.findOne({ passwordResetToken: otp });
+  if (!user) {
+    throw ApiError.notFound("Invalid otp");
+  }
+  if (user.passwordResetExpires < Date.now()) {
+    throw ApiError.notFound("Otp expired");
+  }
+  user.passwordResetToken = null;
+  user.passwordResetExpires = null;
+  await user.save();
+  return res.status(200).json(ApiSuccess.ok("Otp varified"));
+});
+
+export {
+  signup,
+  verifymail,
+  signin,
+  signout,
+  updateUser,
+  updatePassword,
+  forgotPassword,
+  validateOtp,
+};

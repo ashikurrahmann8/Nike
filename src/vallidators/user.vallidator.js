@@ -37,10 +37,15 @@ const userForgotPasswordSchema = z.object({
   email: z.email(),
 });
 
+const userForgotPasswordOtpSchema = z.object({
+  otp: z.string(),
+});
+
 export {
   userSignupSchema,
   userSigninSchema,
   userUpdateSchema,
   userPasswordUpdateSchema,
   userForgotPasswordSchema,
+  userForgotPasswordOtpSchema,
 };
