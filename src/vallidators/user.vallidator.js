@@ -38,7 +38,17 @@ const userForgotPasswordSchema = z.object({
 });
 
 const userForgotPasswordOtpSchema = z.object({
-  otp: z.string(),
+  otp: z.number(),
+});
+
+const userResetPasswordSchema = z.object({
+  otp: z.number(),
+  password: z
+    .string()
+    .regex(
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+      "Password must contain at least one lowercase letter, one uppercase letter, one number and be at least 8 characters long"
+    ),
 });
 
 export {
@@ -48,4 +58,5 @@ export {
   userPasswordUpdateSchema,
   userForgotPasswordSchema,
   userForgotPasswordOtpSchema,
+  userResetPasswordSchema,
 };

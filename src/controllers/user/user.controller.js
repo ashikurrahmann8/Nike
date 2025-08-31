@@ -173,10 +173,20 @@ const validateOtp = asyncHandler(async (req, res) => {
   if (user.passwordResetExpires < Date.now()) {
     throw ApiError.notFound("Otp expired");
   }
+  return res.status(200).json(ApiSuccess.ok("Otp verified"));
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+  const { otp, password } = req.body;
+  const user = await User.findOne({ passwordResetToken: otp });
+  if (!user) {
+    throw ApiError.notFound("Invalid otp");
+  }
+  user.password = password;
   user.passwordResetToken = null;
   user.passwordResetExpires = null;
   await user.save();
-  return res.status(200).json(ApiSuccess.ok("Otp varified"));
+  return res.status(200).json(ApiSuccess.ok("Password reset"));
 });
 
 export {
@@ -188,4 +198,5 @@ export {
   updatePassword,
   forgotPassword,
   validateOtp,
+  resetPassword,
 };
