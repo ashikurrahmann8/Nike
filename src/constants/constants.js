@@ -14,7 +14,16 @@ const MAIL_SERVICE = process.env.MAIL_SERVICE;
 const MAIL_PORT = process.env.MAIL_PORT;
 const MAIL_USER = process.env.MAIL_USER;
 const MAIL_PASS = process.env.MAIL_PASS;
-
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const GOOGLE_OAUTH_URL = process.env.GOOGLE_OAUTH_URL;
+const GOOGLE_ACCESS_TOKEN_URL = process.env.GOOGLE_ACCESS_TOKEN_URL;
+const GOOGLE_TOKEN_INFO_URL = process.env.GOOGLE_TOKEN_INFO_URL;
+const GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;
+const GOOGLE_OAUTH_SCOPES = [
+  "https%3A//www.googleapis.com/auth/userinfo.email",
+  "https%3A//www.googleapis.com/auth/userinfo.profile",
+];
 export {
   PORT,
   APP_URL,
@@ -31,4 +40,11 @@ export {
   MAIL_PORT,
   MAIL_USER,
   MAIL_PASS,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_OAUTH_URL,
+  GOOGLE_ACCESS_TOKEN_URL,
+  GOOGLE_TOKEN_INFO_URL,
+  GOOGLE_CALLBACK_URL,
+  GOOGLE_OAUTH_SCOPES,
 };

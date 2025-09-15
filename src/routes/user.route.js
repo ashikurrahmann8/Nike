@@ -1,8 +1,10 @@
 import e from "express";
 import {
   forgotPassword,
+  googleCallback,
   resetPassword,
   signin,
+  signinWithGoogle,
   signout,
   signup,
   updatePassword,
@@ -37,5 +39,7 @@ router.post(
 router.post("/forgot-password", validationMiddleware(userForgotPasswordSchema), forgotPassword);
 router.post("/verify-otp", validationMiddleware(userForgotPasswordOtpSchema), validateOtp);
 router.post("/reset-password", validationMiddleware(userResetPasswordSchema), resetPassword);
+router.get("/google-signin", signinWithGoogle);
+router.get("/google/callback", googleCallback)
 
 export default router;
