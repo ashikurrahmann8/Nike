@@ -1,4 +1,5 @@
 // import { user } from "react";
+import { email, url } from "zod";
 import {
   APP_URL,
   GOOGLE_ACCESS_TOKEN_URL,
@@ -141,7 +142,40 @@ const googleCallback = asyncHandler(async (req, res) => {
 
   const token_info_response = await fetch(`${GOOGLE_TOKEN_INFO_URL}?id_token=${id_token}`);
   const token_info = await token_info_response.json();
-  res.status(token_info_response.status).json(ApiSuccess.ok("User signed in", token_info));
+  const createdUser = await User.findOneAndUpdate(
+    { email: token_info.email },
+    {
+      userName: (token_info.name + Math.floor(1000 + Math.random() * 9000)).replace(" ", ""),
+      name: token_info.name,
+      email: token_info.email,
+      isVerified: token_info.email_verified,
+      accountType: "google",
+      avatar: {
+        url: token_info.picture,
+      },
+    },
+    {
+      upsert: true,
+      new: true,
+    }
+  );
+
+  const user = await User.findById(createdUser._id).select(
+    "-__v -updatedAt -createdAt -password -passwordResetToken -passwordResetExpires"
+  );
+  const accessToken = user.accessToken();
+  const refreshToken = user.refreshToken();
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  };
+  res
+    .cookie("accessToken", accessToken, { ...cookieOptions, maxAge: 24 * 60 * 60 * 1000 })
+    .cookie("refreshToken", refreshToken, { ...cookieOptions, maxAge: 30 * 24 * 60 * 60 * 1000 })
+    .status(token_info_response.status)
+    .json(ApiSuccess.ok("User signed in", { accessToken, refreshToken }));
 });
 
 const updateUser = asyncHandler(async (req, res) => {

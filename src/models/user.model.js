@@ -9,6 +9,7 @@ import {
   REFRESH_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_SECRET,
 } from "../constants/constants.js";
+import { lowercase, string } from "zod";
 
 const userSchema = new Schema(
   {
@@ -17,6 +18,7 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       index: true,
+      lowercase: true,
     },
     name: {
       type: String,
@@ -48,6 +50,21 @@ const userSchema = new Schema(
       type: String,
       enum: ["active", "inactive", "suspended"],
       default: "active",
+    },
+    accountType: {
+      type: String,
+      enum: ["local", "google"],
+      default: "local",
+    },
+    avatar: {
+      url: {
+        type: String,
+        default: null,
+      },
+      public_id: {
+        type: String,
+        default: null,
+      },
     },
   },
   { timestamps: true }
