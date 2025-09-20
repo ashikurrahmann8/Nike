@@ -85,6 +85,9 @@ const signin = asyncHandler(async (req, res) => {
   if (!isMatch) {
     throw ApiError.notFound("Invalid credentials");
   }
+  if (user.isVerified === false) {
+    throw ApiError.forbidden("Email is not verified");
+  }
   const accessToken = user.accessToken();
   const refreshToken = user.refreshToken();
 
@@ -269,6 +272,11 @@ const resetPassword = asyncHandler(async (req, res) => {
   return res.status(200).json(ApiSuccess.ok("Password reset"));
 });
 
+const avatarUpload = asyncHandler(async (req, res) => {
+  const avatar = req.file;
+  return res.status(200).json(ApiSuccess.ok("Avatar uploaded", avatar));
+});
+
 export {
   signup,
   verifymail,
@@ -281,4 +289,5 @@ export {
   resetPassword,
   signinWithGoogle,
   googleCallback,
+  avatarUpload,
 };

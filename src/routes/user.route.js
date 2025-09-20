@@ -1,5 +1,6 @@
 import e from "express";
 import {
+  avatarUpload,
   forgotPassword,
   googleCallback,
   resetPassword,
@@ -23,6 +24,7 @@ import {
   userUpdateSchema,
 } from "../vallidators/user.vallidator.js";
 import auth from "../middlewares/auth.middleware.js";
+import upload from "../middlewares/fileUpload.middleware.js";
 
 const router = e.Router();
 router.post("/signup", validationMiddleware(userSignupSchema), signup);
@@ -40,6 +42,7 @@ router.post("/forgot-password", validationMiddleware(userForgotPasswordSchema), 
 router.post("/verify-otp", validationMiddleware(userForgotPasswordOtpSchema), validateOtp);
 router.post("/reset-password", validationMiddleware(userResetPasswordSchema), resetPassword);
 router.get("/google-signin", signinWithGoogle);
-router.get("/google/callback", googleCallback)
+router.get("/google/callback", googleCallback);
+router.post("/avatar-upload", auth, upload.single("avatar"), avatarUpload);
 
 export default router;
