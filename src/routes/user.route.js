@@ -3,6 +3,7 @@ import {
   avatarUpload,
   forgotPassword,
   googleCallback,
+  me,
   resetPassword,
   signin,
   signinWithGoogle,
@@ -44,5 +45,6 @@ router.post("/reset-password", validationMiddleware(userResetPasswordSchema), re
 router.get("/google-signin", signinWithGoogle);
 router.get("/google/callback", googleCallback);
 router.post("/avatar-upload", auth, upload.single("avatar"), avatarUpload);
+router.get("/me", auth, me);
 
 export default router;
