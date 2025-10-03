@@ -1,5 +1,5 @@
 // import { user } from "react";
-import { email, url } from "zod";
+import { email, overwrite, url } from "zod";
 import {
   APP_URL,
   GOOGLE_ACCESS_TOKEN_URL,
@@ -17,6 +17,7 @@ import ApiSuccess from "../../utils/apiSuccess.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { sendMail, forgotPasswordFormat, verifyEmailFormat } from "../../utils/mail.js";
 import jwt from "jsonwebtoken";
+import { fileUpload } from "../../utils/fileUpload.js";
 
 const signup = asyncHandler(async (req, res) => {
   const { userName, name, email, password } = req.body;
@@ -274,7 +275,22 @@ const resetPassword = asyncHandler(async (req, res) => {
 
 const avatarUpload = asyncHandler(async (req, res) => {
   const avatar = req.file;
-  return res.status(200).json(ApiSuccess.ok("Avatar uploaded", avatar));
+  const user = req.user;
+
+  const result = await fileUpload(avatar.path, {
+    folder: "avatar",
+    use_filename: true,
+    resource_type: "image",
+    overwrite: true,
+    transformation: [{ width: 300, height: 300, crop: "fill", gravity: "face", radius: "max" }],
+    public_id: req.user._id,
+  });
+  user.avatar = {
+    public_id: result.public_id,
+    url: result.secure_url,
+  };
+  await user.save();
+  return res.status(200).json(ApiSuccess.ok("Avatar uploaded", user));
 });
 
 export {

@@ -24,6 +24,10 @@ const GOOGLE_OAUTH_SCOPES = [
   "https%3A//www.googleapis.com/auth/userinfo.email",
   "https%3A//www.googleapis.com/auth/userinfo.profile",
 ];
+
+const CLOUD_NAME = process.env.CLOUD_NAME;
+const CLOUD_API_KEY = process.env.CLOUD_API_KEY;
+const CLOUD_API_SECRET = process.env.CLOUD_API_SECRET;
 export {
   PORT,
   APP_URL,
@@ -47,4 +51,7 @@ export {
   GOOGLE_TOKEN_INFO_URL,
   GOOGLE_CALLBACK_URL,
   GOOGLE_OAUTH_SCOPES,
+  CLOUD_NAME,
+  CLOUD_API_KEY,
+  CLOUD_API_SECRET,
 };
