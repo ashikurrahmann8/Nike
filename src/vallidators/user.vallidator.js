@@ -51,6 +51,10 @@ const userResetPasswordSchema = z.object({
     ),
 });
 
+const avatarUploadSchema = z.object({
+  avatar: z.any(),
+});
+
 export {
   userSignupSchema,
   userSigninSchema,
@@ -59,4 +63,5 @@ export {
   userForgotPasswordSchema,
   userForgotPasswordOtpSchema,
   userResetPasswordSchema,
+  avatarUploadSchema,
 };

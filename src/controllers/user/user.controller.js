@@ -18,6 +18,7 @@ import { asyncHandler } from "../../utils/asyncHandler.js";
 import { sendMail, forgotPasswordFormat, verifyEmailFormat } from "../../utils/mail.js";
 import jwt from "jsonwebtoken";
 import { fileUpload } from "../../utils/fileUpload.js";
+import { avatarUploadSchema } from "../../vallidators/user.vallidator.js";
 
 const signup = asyncHandler(async (req, res) => {
   const { userName, name, email, password } = req.body;
@@ -96,6 +97,7 @@ const signin = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
+    signed: true,
   };
 
   return res
@@ -122,7 +124,6 @@ const signinWithGoogle = asyncHandler(async (req, res) => {
 
 const googleCallback = asyncHandler(async (req, res) => {
   const { code } = req.query;
-
   const data = {
     code,
 
@@ -275,8 +276,11 @@ const resetPassword = asyncHandler(async (req, res) => {
 
 const avatarUpload = asyncHandler(async (req, res) => {
   const avatar = req.file;
+  const avatarValidation = avatarUploadSchema.safeParse(avatar);
+  if (avatarValidation.error) {
+    throw ApiError.badRequest("Avatar is required");
+  }
   const user = req.user;
-
   const result = await fileUpload(avatar.path, {
     folder: "avatar",
     use_filename: true,
