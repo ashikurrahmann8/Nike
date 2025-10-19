@@ -28,7 +28,7 @@ const createCategory = asyncHandler(async (req, res) => {
     public_id: name,
   });
 
-  const category = Category.create({
+  const category = await Category.create({
     name,
     image: {
       url: result.secure_url,

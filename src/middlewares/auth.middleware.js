@@ -6,6 +6,8 @@ import jwt from "jsonwebtoken";
 
 const auth = asyncHandler(async (req, _res, next) => {
   const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
+  
+  
   if (!token) {
     throw ApiError.unauthorized("Access token not found. Please log in.");
   }
@@ -18,6 +20,8 @@ const auth = asyncHandler(async (req, _res, next) => {
   if (!decodedToken?.id) {
     throw ApiError.unauthorized("Token doesnot contain valid user info");
   }
+
+
   const user = await User.findById(decodedToken.id).select(
     "-__v -password -createdAt -updateAt -passwordResetToken -passwordResetExpires"
   );

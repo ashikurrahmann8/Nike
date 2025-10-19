@@ -97,7 +97,7 @@ const signin = asyncHandler(async (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    signed: true,
+    // signed: true,
   };
 
   return res
