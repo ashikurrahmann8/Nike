@@ -6,6 +6,11 @@ const subcategory = new Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     image: {
       url: {
         type: String,

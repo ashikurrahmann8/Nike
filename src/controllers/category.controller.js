@@ -6,7 +6,7 @@ import { fileUpload } from "../utils/fileUpload.js";
 import { categoryImageSchema } from "../vallidators/category.validator.js";
 
 const getCategories = asyncHandler(async (_req, res) => {
-  const categories = await Category.find().populate("subcategories");
+  const categories = await Category.find();
   if (categories.length === 0) {
     return res.status(200).json(ApiSuccess.ok("No category found", categories));
   }
@@ -38,4 +38,10 @@ const createCategory = asyncHandler(async (req, res) => {
   return res.status(201).json(ApiSuccess.ok("Category created", category));
 });
 
-export { getCategories, createCategory };
+const getCategory = asyncHandler(async (req, res) => {
+  const { category } = req.params;
+});
+
+const updateCategory = asyncHandler(async (req, res) => {});
+
+export { getCategories, createCategory, getCategory };
