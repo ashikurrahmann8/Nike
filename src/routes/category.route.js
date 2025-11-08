@@ -1,5 +1,5 @@
 import e from "express";
-import { createCategory, getCategories } from "../controllers/category.controller.js";
+import { createCategory, getCategories, getCategory } from "../controllers/category.controller.js";
 import auth from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/fileUpload.middleware.js";
 import validationMiddleware from "../middlewares/validation.middleware.js";
@@ -10,5 +10,5 @@ router
   .route("/categories")
   .get(auth, getCategories)
   .post(auth, upload.single("image"), validationMiddleware(createCategorySchema), createCategory);
-
+router.get("/categories/:slug", auth, getCategory);
 export default router;
