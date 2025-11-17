@@ -1,6 +1,7 @@
 import e from "express";
 import {
   createCategory,
+  deleteCategory,
   getCategories,
   getCategory,
   updateCategory,
@@ -17,13 +18,8 @@ router
   .post(auth, upload.single("image"), validationMiddleware(createCategorySchema), createCategory);
 
 router
-  .get("/categories/:slug", auth, getCategory)
-  .put(
-    "/categories/:slugParam",
-    auth,
-    upload.single("image"),
-    validationMiddleware(createCategorySchema),
-    updateCategory
-  );
+  .route("/categories/:slugParam")
+  .get(auth, getCategory)
+  .put(auth, upload.single("image"), validationMiddleware(createCategorySchema), updateCategory).delete(auth, deleteCategory);
 
 export default router;

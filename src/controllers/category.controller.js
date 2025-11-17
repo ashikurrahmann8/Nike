@@ -51,8 +51,8 @@ const createCategory = asyncHandler(async (req, res) => {
 });
 
 const getCategory = asyncHandler(async (req, res) => {
-  const { slug } = req.params;
-  const category = await Category.find({ slug }).populate("subcategories");
+  const { slugParam } = req.params;
+  const category = await Category.find({ slug: slugParam }).populate("subcategories");
   if (!category) {
     throw ApiError.notFound("Category not found");
   }
@@ -101,4 +101,13 @@ const updateCategory = asyncHandler(async (req, res) => {
   return res.status(200).json(ApiSuccess.ok("Category updated", category));
 });
 
-export { getCategories, createCategory, getCategory, updateCategory };
+const deleteCategory = asyncHandler(async (req, res) => {
+  const { slugParam } = req.params;
+  const category = await Category.findOneAndDelete({ slug: slugParam });
+  if (!category) {
+    throw ApiError.notFound("Category not found");
+  }
+  return res.status(200).json(ApiSuccess.ok("Category deleted"));
+});
+
+export { getCategories, createCategory, getCategory, updateCategory, deleteCategory };
