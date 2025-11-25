@@ -26,6 +26,10 @@ const subcategory = new Schema(
       ref: "Category",
       required: true,
     },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   {
     timestamps: true,
