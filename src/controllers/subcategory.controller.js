@@ -115,7 +115,7 @@ const deleteSubcategory = asyncHandler(async (req, res) => {
   if (!subcategory) {
     throw ApiError.notFound("Subcategory not found");
   }
-  return res.status(200).json(ApiSuccess.noContent("Subcategory deleted"));
+  return res.status(204).json(ApiSuccess.noContent("Subcategory deleted"));
 });
 
 export {
