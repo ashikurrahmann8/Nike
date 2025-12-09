@@ -8,8 +8,8 @@ const subcategory = new Schema(
     },
     slug: {
       type: String,
-
       unique: true,
+      index: true, 
     },
     image: {
       url: {

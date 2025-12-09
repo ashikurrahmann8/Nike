@@ -9,8 +9,8 @@ const category = new Schema(
     },
     slug: {
       type: String,
-
       unique: true,
+      index: true,
     },
     image: {
       url: {
@@ -20,12 +20,7 @@ const category = new Schema(
         type: String,
       },
     },
-    subcategories: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Subcategory",
-      },
-    ],
+   
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: "User",

@@ -11,7 +11,7 @@ import {
   GOOGLE_TOKEN_INFO_URL,
   JWT_SECRET,
 } from "../../constants/constants.js";
-import { User } from "../../models/index.model.js";
+
 import ApiError from "../../utils/apiError.js";
 import ApiSuccess from "../../utils/apiSuccess.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
@@ -19,6 +19,7 @@ import { sendMail, forgotPasswordFormat, verifyEmailFormat } from "../../utils/m
 import jwt from "jsonwebtoken";
 import { fileUpload } from "../../utils/fileUpload.js";
 import { avatarUploadSchema } from "../../vallidators/user.vallidator.js";
+import { User } from "../../models/user.model.js";
 
 const signup = asyncHandler(async (req, res) => {
   const { userName, name, email, password } = req.body;

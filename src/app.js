@@ -29,9 +29,11 @@ app.use(cookieParser(ACCESS_TOKEN_SECRET));
 import heathCheckRoute from "./routes/heathCheck.route.js";
 import userRoute from "./routes/user.route.js";
 import categoryRoute from "./routes/category.route.js";
+import subcategoryRoute from "./routes/subcategory.route.js";
 
 app.use("/api/v1", heathCheckRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1", categoryRoute);
+app.use("/api/v1", subcategoryRoute);
 app.use(errorHandler);
 export { app };
