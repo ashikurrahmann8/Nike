@@ -13,11 +13,11 @@ cloudinary.config({
 // Upload an image
 const fileUpload = async (file, options) => {
   try {
-    const data = await cloudinary.uploader.upload(file, { ...options });
-    if (existsSync(file)) unlinkSync(file);
-    return data;
+    const result = await cloudinary.uploader.upload(file, { ...options });
+    // if (existsSync(file)) unlinkSync(file);
+    return result;
   } catch (error) {
-    if (existsSync(file)) unlinkSync(file);
+    // if (existsSync(file)) unlinkSync(file);
     throw ApiError.serverError(error.message);
   }
 };

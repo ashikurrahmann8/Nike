@@ -1,5 +1,4 @@
 // import { user } from "react";
-import { email, overwrite, url } from "zod";
 import {
   APP_URL,
   GOOGLE_ACCESS_TOKEN_URL,
@@ -12,14 +11,14 @@ import {
   JWT_SECRET,
 } from "../../constants/constants.js";
 
+import jwt from "jsonwebtoken";
+import { User } from "../../models/user.model.js";
 import ApiError from "../../utils/apiError.js";
 import ApiSuccess from "../../utils/apiSuccess.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { sendMail, forgotPasswordFormat, verifyEmailFormat } from "../../utils/mail.js";
-import jwt from "jsonwebtoken";
 import { fileUpload } from "../../utils/fileUpload.js";
+import { forgotPasswordFormat, sendMail, verifyEmailFormat } from "../../utils/mail.js";
 import { avatarUploadSchema } from "../../vallidators/user.vallidator.js";
-import { User } from "../../models/user.model.js";
 
 const signup = asyncHandler(async (req, res) => {
   const { userName, name, email, password } = req.body;
@@ -218,7 +217,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
 const updatePassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
-  const user = req.user;
+  const user = await User.findById(req.user._id);
   if (oldPassword === newPassword) {
     throw ApiError.badRequest("New password cannot be same as old password");
   }
@@ -303,17 +302,17 @@ const me = asyncHandler(async (req, res) => {
 });
 
 export {
-  signup,
-  verifymail,
-  signin,
-  signout,
-  updateUser,
-  updatePassword,
-  forgotPassword,
-  validateOtp,
-  resetPassword,
-  signinWithGoogle,
-  googleCallback,
   avatarUpload,
+  forgotPassword,
+  googleCallback,
   me,
+  resetPassword,
+  signin,
+  signinWithGoogle,
+  signout,
+  signup,
+  updatePassword,
+  updateUser,
+  validateOtp,
+  verifymail,
 };
