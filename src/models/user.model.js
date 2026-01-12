@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import mongoose, { Schema } from "mongoose";
 import {
   ACCESS_TOKEN_EXPIRES_IN,
   ACCESS_TOKEN_SECRET,
@@ -9,7 +9,6 @@ import {
   REFRESH_TOKEN_EXPIRES_IN,
   REFRESH_TOKEN_SECRET,
 } from "../constants/constants.js";
-import { lowercase, string } from "zod";
 
 const userSchema = new Schema(
   {
@@ -22,7 +21,6 @@ const userSchema = new Schema(
     },
     name: {
       type: String,
-      required: [true, "name is required"],
     },
     email: {
       type: String,

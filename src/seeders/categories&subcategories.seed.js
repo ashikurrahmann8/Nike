@@ -26,95 +26,95 @@ const seedData = [
       { name: "Ride Sharing", slug: "ride-sharing", image: { url: "", public_id: "" } },
     ],
   },
-
-  {
-    name: "Housing",
-    slug: "housing",
-    image: { url: "", public_id: "" },
-    subcategories: [
-      { name: "Rent", slug: "rent", image: { url: "", public_id: "" } },
-      { name: "Utilities", slug: "utilities", image: { url: "", public_id: "" } },
-      { name: "Maintenance", slug: "maintenance", image: { url: "", public_id: "" } },
-    ],
-  },
-
-  {
-    name: "Health",
-    slug: "health",
-    image: { url: "", public_id: "" },
-    subcategories: [
-      { name: "Medical Bills", slug: "medical-bills", image: { url: "", public_id: "" } },
-      { name: "Medicine", slug: "medicine", image: { url: "", public_id: "" } },
-      { name: "Health Insurance", slug: "health-insurance", image: { url: "", public_id: "" } },
-    ],
-  },
-
-  {
-    name: "Entertainment",
-    slug: "entertainment",
-    image: { url: "", public_id: "" },
-    subcategories: [
-      { name: "Streaming Service", slug: "streaming-service", image: { url: "", public_id: "" } },
-      { name: "Movies & Shows", slug: "movies-shows", image: { url: "", public_id: "" } },
-      { name: "Games & Apps", slug: "games-apps", image: { url: "", public_id: "" } },
-    ],
-  },
-
-  {
-    name: "Personal Care",
-    slug: "personal-care",
-    image: { url: "", public_id: "" },
-    subcategories: [
-      { name: "Salon", slug: "salon", image: { url: "", public_id: "" } },
-      { name: "Cosmetics", slug: "cosmetics", image: { url: "", public_id: "" } },
-      { name: "Fitness", slug: "fitness", image: { url: "", public_id: "" } },
-    ],
-  },
-
-  {
-    name: "Education",
-    slug: "education",
-    image: { url: "", public_id: "" },
-    subcategories: [
-      { name: "Tuition Fees", slug: "tuition-fees", image: { url: "", public_id: "" } },
-      { name: "Books & Supplies", slug: "books-supplies", image: { url: "", public_id: "" } },
-      { name: "Online Courses", slug: "online-courses", image: { url: "", public_id: "" } },
-    ],
-  },
-
-  {
-    name: "Shopping",
-    slug: "shopping",
-    image: { url: "", public_id: "" },
-    subcategories: [
-      { name: "Clothing", slug: "clothing", image: { url: "", public_id: "" } },
-      { name: "Electronics", slug: "electronics", image: { url: "", public_id: "" } },
-      { name: "Household Items", slug: "household-items", image: { url: "", public_id: "" } },
-    ],
-  },
-
-  {
-    name: "Travel",
-    slug: "travel",
-    image: { url: "", public_id: "" },
-    subcategories: [
-      { name: "Flights", slug: "flights", image: { url: "", public_id: "" } },
-      { name: "Hotels", slug: "hotels", image: { url: "", public_id: "" } },
-      { name: "Tours", slug: "tours", image: { url: "", public_id: "" } },
-    ],
-  },
-
-  {
-    name: "Others",
-    slug: "others",
-    image: { url: "", public_id: "" },
-    subcategories: [
-      { name: "Charity", slug: "charity", image: { url: "", public_id: "" } },
-      { name: "Gifts", slug: "gifts", image: { url: "", public_id: "" } },
-      { name: "Miscellaneous", slug: "miscellaneous", image: { url: "", public_id: "" } },
-    ],
-  },
 ];
+
+// {
+//     name: "Housing",
+//     slug: "housing",
+//     image: { url: "", public_id: "" },
+//     subcategories: [
+//       { name: "Rent", slug: "rent", image: { url: "", public_id: "" } },
+//       { name: "Utilities", slug: "utilities", image: { url: "", public_id: "" } },
+//       { name: "Maintenance", slug: "maintenance", image: { url: "", public_id: "" } },
+//     ],
+//   },
+
+//   {
+//     name: "Health",
+//     slug: "health",
+//     image: { url: "", public_id: "" },
+//     subcategories: [
+//       { name: "Medical Bills", slug: "medical-bills", image: { url: "", public_id: "" } },
+//       { name: "Medicine", slug: "medicine", image: { url: "", public_id: "" } },
+//       { name: "Health Insurance", slug: "health-insurance", image: { url: "", public_id: "" } },
+//     ],
+//   },
+
+//   {
+//     name: "Entertainment",
+//     slug: "entertainment",
+//     image: { url: "", public_id: "" },
+//     subcategories: [
+//       { name: "Streaming Service", slug: "streaming-service", image: { url: "", public_id: "" } },
+//       { name: "Movies & Shows", slug: "movies-shows", image: { url: "", public_id: "" } },
+//       { name: "Games & Apps", slug: "games-apps", image: { url: "", public_id: "" } },
+//     ],
+//   },
+
+//   {
+//     name: "Personal Care",
+//     slug: "personal-care",
+//     image: { url: "", public_id: "" },
+//     subcategories: [
+//       { name: "Salon", slug: "salon", image: { url: "", public_id: "" } },
+//       { name: "Cosmetics", slug: "cosmetics", image: { url: "", public_id: "" } },
+//       { name: "Fitness", slug: "fitness", image: { url: "", public_id: "" } },
+//     ],
+//   },
+
+//   {
+//     name: "Education",
+//     slug: "education",
+//     image: { url: "", public_id: "" },
+//     subcategories: [
+//       { name: "Tuition Fees", slug: "tuition-fees", image: { url: "", public_id: "" } },
+//       { name: "Books & Supplies", slug: "books-supplies", image: { url: "", public_id: "" } },
+//       { name: "Online Courses", slug: "online-courses", image: { url: "", public_id: "" } },
+//     ],
+//   },
+
+//   {
+//     name: "Shopping",
+//     slug: "shopping",
+//     image: { url: "", public_id: "" },
+//     subcategories: [
+//       { name: "Clothing", slug: "clothing", image: { url: "", public_id: "" } },
+//       { name: "Electronics", slug: "electronics", image: { url: "", public_id: "" } },
+//       { name: "Household Items", slug: "household-items", image: { url: "", public_id: "" } },
+//     ],
+//   },
+
+//   {
+//     name: "Travel",
+//     slug: "travel",
+//     image: { url: "", public_id: "" },
+//     subcategories: [
+//       { name: "Flights", slug: "flights", image: { url: "", public_id: "" } },
+//       { name: "Hotels", slug: "hotels", image: { url: "", public_id: "" } },
+//       { name: "Tours", slug: "tours", image: { url: "", public_id: "" } },
+//     ],
+//   },
+
+//   {
+//     name: "Others",
+//     slug: "others",
+//     image: { url: "", public_id: "" },
+//     subcategories: [
+//       { name: "Charity", slug: "charity", image: { url: "", public_id: "" } },
+//       { name: "Gifts", slug: "gifts", image: { url: "", public_id: "" } },
+//       { name: "Miscellaneous", slug: "miscellaneous", image: { url: "", public_id: "" } },
+//     ],
+//   }
 
 async function seedCategories() {
   await mongoose.connect(MONGO_URI);
@@ -143,3 +143,5 @@ async function seedCategories() {
 }
 
 seedCategories();
+
+//comment test//
