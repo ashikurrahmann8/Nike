@@ -116,7 +116,7 @@ const seedData = [
 //     ],
 //   }
 
-async function seedCategories() {
+export async function seedCategories() {
   await mongoose.connect(MONGO_URI);
   console.log("DB connected");
 
@@ -140,8 +140,7 @@ async function seedCategories() {
     });
   });
   console.log("Image seeding done");
+
+
+  
 }
-
-seedCategories();
-
-//comment test//
