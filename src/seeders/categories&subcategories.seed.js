@@ -140,7 +140,18 @@ export async function seedCategories() {
     });
   });
   console.log("Image seeding done");
+  for (const item of seedData) {
+    const category = await Category.create({
+      name: item.name,
+      slug: item.slug,
+      image: item.image,
+    });
 
-
-  
+    const subcategories = item.subcategories.map((sub) => ({
+      ...sub,
+      category: category._id,
+    }));
+    await Subcategory.insertMany(subcategories);
+  }
+  console.log("Categories seeded successfully");
 }
