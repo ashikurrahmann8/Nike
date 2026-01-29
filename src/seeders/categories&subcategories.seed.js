@@ -158,4 +158,5 @@ export async function seedCategories() {
     console.log("Sub 2");
   }
   console.log("Categories seeded successfully");
-}
+}  
+
