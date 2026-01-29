@@ -151,7 +151,11 @@ export async function seedCategories() {
       ...sub,
       category: category._id,
     }));
+    console.log("Sub 1");
+
     await Subcategory.insertMany(subcategories);
+
+    console.log("Sub 2");
   }
   console.log("Categories seeded successfully");
 }
