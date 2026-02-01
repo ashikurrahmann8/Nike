@@ -4,7 +4,7 @@ const groupSchema = new Schema(
   {
     name: {
       type: string,
-      required: true,
+     
     },
     description: {
       type: string,
@@ -20,7 +20,7 @@ const groupSchema = new Schema(
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      
     },
     members: [
       {
