@@ -1,9 +1,16 @@
 import { Group } from "../models/group.model.js";
+import ApiError from "../utils/apiError.js";
 import ApiSuccess from "../utils/apiSuccess.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { fileUpload } from "../utils/fileUpload.js";
 
 const createGroup = asyncHandler(async (req, res) => {
+  const groupExists = await Group.findOne({
+    $and: [{ name: req.body.name }, { createdBy: req.user._id }],
+  });
+  if (groupExists) {
+    throw ApiError.badRequest("Group already exists");
+  }
   const groupLogo = req.file;
   if (groupLogo) {
     const result = await fileUpload(groupLogo.path, {

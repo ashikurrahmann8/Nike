@@ -49,7 +49,7 @@ app.use("/api/v1", heathCheckRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1", categoryRoute);
 app.use("/api/v1", subcategoryRoute);
-app.use(errorHandler);
 app.use("/api/v1", groupRouter);
+app.use(errorHandler);
 
 export { app };
