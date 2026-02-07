@@ -3,24 +3,22 @@ import mongoose, { Schema } from "mongoose";
 const groupSchema = new Schema(
   {
     name: {
-      type: string,
-     
+      type: String,
     },
     description: {
-      type: string,
+      type: String,
     },
     image: {
       url: {
-        type: string,
+        type: String,
       },
       public_id: {
-        type: string,
+        type: String,
       },
     },
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      
     },
     members: [
       {

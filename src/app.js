@@ -1,9 +1,9 @@
-import express from "express";
-import cors from "cors";
-import { ACCESS_TOKEN_SECRET, WHITELIST } from "./constants/constants.js";
 import cookieParser from "cookie-parser";
-import errorHandler from "./middlewares/errorHandler.middleware.js";
+import cors from "cors";
+import express from "express";
 import rateLimit from "express-rate-limit";
+import { ACCESS_TOKEN_SECRET, WHITELIST } from "./constants/constants.js";
+import errorHandler from "./middlewares/errorHandler.middleware.js";
 const app = express();
 
 app.use(express.json());
@@ -39,15 +39,17 @@ app.use("/api/v1", limiter);
 
 //define routes
 
-import heathCheckRoute from "./routes/heathCheck.route.js";
-import userRoute from "./routes/user.route.js";
 import categoryRoute from "./routes/category.route.js";
+import groupRouter from "./routes/group.route.js";
+import heathCheckRoute from "./routes/heathCheck.route.js";
 import subcategoryRoute from "./routes/subcategory.route.js";
+import userRoute from "./routes/user.route.js";
 
 app.use("/api/v1", heathCheckRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1", categoryRoute);
 app.use("/api/v1", subcategoryRoute);
 app.use(errorHandler);
+app.use("/api/v1", groupRouter);
 
 export { app };
